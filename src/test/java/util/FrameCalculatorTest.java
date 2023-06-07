@@ -1,12 +1,14 @@
 package util;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
 class FrameCalculatorTest {
 
+    // happy path
     @Test
     void calculate() {
         String[] result = FrameCalculator.calculate(new String[]{"7", "2", "5", "3", "6", "/", "7", "1", "X", "2", "4"});
@@ -14,16 +16,7 @@ class FrameCalculatorTest {
         Assertions.assertArrayEquals(expected,result);
     }
 
-    @Test
-    void calculate_givenNonnumericalRoll_shouldThrowException() {
-        Assertions.assertThrows(Exception.class, () -> FrameCalculator.calculate(new String[] {"7","2","a","1"}));
-    }
-
-    @Test
-    void calculate_givenTwoRollsThatSumToMoreThanTen_shouldThrowException() {
-        Assertions.assertThrows(Exception.class, () -> FrameCalculator.calculate(new String[] {"7","4"}));
-    }
-
+    // incomplete frames
     @Test
     void calculate_givenIncompleteStrikeFrame_shouldReturnNullFinalTwoFrames() {
         String[] result1 = FrameCalculator.calculate(new String[]{"7","2","X"});
@@ -48,6 +41,17 @@ class FrameCalculatorTest {
         Assertions.assertArrayEquals(expected, result);
     }
 
+    // Validation
+    @Test()
+    void calculate_givenNonnumericalRoll_shouldThrowException() {
+        Assertions.assertThrows(Exception.class, () -> FrameCalculator.calculate(new String[] {"7","2","a","1"}));
+    }
+
+    @Test
+    void calculate_givenTwoRollsThatSumToMoreThanTen_shouldThrowException() {
+        Assertions.assertThrows(Exception.class, () -> FrameCalculator.calculate(new String[] {"7","4"}));
+    }
+
     @Test
     void calculate_givenSpareAsFirstBall_shouldThrowException() {
         Assertions.assertThrows(Exception.class, () -> FrameCalculator.calculate(new String[] {"7","3","/"}));
@@ -58,6 +62,7 @@ class FrameCalculatorTest {
         Assertions.assertThrows(Exception.class, () -> FrameCalculator.calculate(new String[] {"7","3", "6","X"}));
     }
 
+    // weird cases
     @Test
     void calculate_givenPerfectGame_totalScoreShouldEqual300() {
         String[] result = FrameCalculator.calculate(new String[]{"X","X","X","X","X","X","X","X","X","X","X","X",});
