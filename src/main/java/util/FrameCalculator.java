@@ -31,11 +31,14 @@ public class FrameCalculator {
                             Roll rollAfterNext = iterator.next();
                             // whether rollAfterNext is a number or a strike, we can just add its value to 10 (10 is for the base score of the spare frame)
                             results.add(String.valueOf(10 + rollAfterNext.getValue()));
+                            // unwinding the iterator.next() we did to peek rollAfterNext's value
+                            iterator.previous();
                         } else {
                             // incomplete frame because nextRoll is a spare and there is no follow-up roll
                             results.add(null);
                         }
                     }
+                    // no need to unwind the iterator.next() we did for to get nextRoll since we finished the frame
                 } else {
                     // incomplete numeric frame
                     results.add(null);
