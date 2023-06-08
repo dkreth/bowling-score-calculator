@@ -68,4 +68,11 @@ class FrameCalculatorTest {
         String[] expected = new String[]{"30","30","30","30","30","30","30","30","30","30",null, null};
         Assertions.assertArrayEquals(expected, result);
     }
+
+    @Test
+    void calculate_givenStrikeFollowedBySpare_frameShouldBeCalculatedCorrectly() {
+        String[] result = frameCalculator.calculate(new String[]{"X", "3", "/", "4", "5"});
+        String[] expected = new String[]{"20","14","9"};
+        Assertions.assertArrayEquals(expected, result);
+    }
 }
