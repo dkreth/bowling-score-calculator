@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FrameCalculator {
-    public static String[] calculate(String[] rolls) {
+    public String[] calculate(String[] rolls) {
 
         List<String> results = new ArrayList<>();
         boolean secondBallOfFrame = false;
@@ -50,7 +50,7 @@ public class FrameCalculator {
         return results.toArray(new String[0]);
     }
 
-    private static String getSpareValue(String[] rolls, int i) {
+    private String getSpareValue(String[] rolls, int i) {
         try {
             return String.valueOf(10 + getFaceValue(rolls[i+1]));
         } catch (IndexOutOfBoundsException ex) {
@@ -59,7 +59,7 @@ public class FrameCalculator {
         }
     }
 
-    private static String getStrikeValue(String[] rolls, int i) {
+    private String getStrikeValue(String[] rolls, int i) {
         try {
             return String.valueOf(10 + getFaceValue(rolls[i+1]) + getFaceValue(rolls[i+2]));
         } catch (IndexOutOfBoundsException ex) {
@@ -68,7 +68,7 @@ public class FrameCalculator {
         }
     }
 
-    private static int getFaceValue(String roll) {
+    private int getFaceValue(String roll) {
         switch (roll) {
             case "X":
             case "/":
