@@ -4,13 +4,11 @@ import model.Frame;
 import model.Roll;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class FrameParser {
 
 
-    public List<Frame> parseRolls(String[] stringRolls) {
-        List<Roll> rolls = Arrays.stream(stringRolls).map(Roll::convertStringToRoll).collect(Collectors.toList());
+    public List<Frame> parseRollsIntoFrames(List<Roll> rolls) {
         List<Frame> frames = new ArrayList<>();
         Iterator<Roll> iterator = rolls.iterator();
         while (iterator.hasNext()) {
@@ -24,7 +22,7 @@ public class FrameParser {
                 throw new IllegalArgumentException();
             }
         }
-        return null;
+        return frames;
     }
 
     private static void handleStrikeFrame(List<Frame> frames) {

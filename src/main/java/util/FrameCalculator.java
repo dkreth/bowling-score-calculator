@@ -1,32 +1,36 @@
 package util;
 
 import model.Frame;
+import model.Roll;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FrameCalculator {
     FrameParser frameParser = new FrameParser();
-    public String[] calculate(String[] rolls) {
-        List<Frame> frames = frameParser.parseRolls(rolls);
+    public String[] calculate(String[] stringRolls) {
+        List<Roll> rolls = Arrays.stream(stringRolls).map(Roll::convertStringToRoll).collect(Collectors.toList());
+        List<Frame> frames = frameParser.parseRollsIntoFrames(rolls);
 
         List<String> results = new ArrayList<>();
         boolean secondBallOfFrame = false;
 
-        for(int i=0; i< rolls.length; i++) {
-            String roll = rolls[i];
+        for(int i=0; i< stringRolls.length; i++) {
+            String roll = stringRolls[i];
             switch (roll) {
                 case "X":
                     //process strike
                     System.out.println(roll);
-                    results.add(getStrikeValue(rolls, i));
+                    results.add(getStrikeValue(stringRolls, i));
                     secondBallOfFrame = false;
                     break;
                 case "/":
                     // process spare
                     System.out.println(roll);
                     results.remove(results.size()-1); // remove null
-                    results.add(getSpareValue(rolls,i));
+                    results.add(getSpareValue(stringRolls,i));
                     secondBallOfFrame = false;
                     break;
                 default:
@@ -36,7 +40,7 @@ public class FrameCalculator {
                         assert parsedRoll <= 9;
                         System.out.println(parsedRoll);
                         if(secondBallOfFrame) {
-                            int frameScore = getFaceValue(rolls[i - 1]) + getFaceValue(roll);
+                            int frameScore = getFaceValue(stringRolls[i - 1]) + getFaceValue(roll);
                             results.remove(results.size()-1);
                             results.add(String.valueOf(frameScore));
                             secondBallOfFrame = false;
