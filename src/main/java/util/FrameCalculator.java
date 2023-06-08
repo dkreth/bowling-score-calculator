@@ -1,10 +1,14 @@
 package util;
 
+import model.Frame;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class FrameCalculator {
+    FrameParser frameParser = new FrameParser();
     public String[] calculate(String[] rolls) {
+        List<Frame> frames = frameParser.parseRolls(rolls);
 
         List<String> results = new ArrayList<>();
         boolean secondBallOfFrame = false;
