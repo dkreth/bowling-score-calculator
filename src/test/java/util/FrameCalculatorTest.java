@@ -3,7 +3,6 @@ package util;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 
 class FrameCalculatorTest {
     FrameCalculator frameCalculator = new FrameCalculator();
@@ -66,7 +65,7 @@ class FrameCalculatorTest {
     @Test
     void calculate_givenPerfectGame_totalScoreShouldEqual300() {
         String[] result = frameCalculator.calculate(new String[]{"X","X","X","X","X","X","X","X","X","X","X","X",});
-        Integer sum = Arrays.stream(result).map(Integer::parseInt).reduce(0, (runningTotal, nextNum) -> runningTotal + nextNum);
-        Assertions.assertEquals(300, sum);
+        String[] expected = new String[]{"30","30","30","30","30","30","30","30","30","30",null, null};
+        Assertions.assertArrayEquals(expected, result);
     }
 }
