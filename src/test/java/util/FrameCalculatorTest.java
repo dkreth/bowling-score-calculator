@@ -15,6 +15,22 @@ class FrameCalculatorTest {
         Assertions.assertArrayEquals(expected,result);
     }
 
+    @Test
+    void calculate_givenTestCase1() {
+        String[] result = frameCalculator.calculate(new String[]{"4", "5", "X", "8"});
+        String[] expected = new String[]{"9", null, null};
+        Assertions.assertArrayEquals(expected,result);
+    }
+
+    @Test
+    void calculate_givenTestCase2() {
+        String[] result = frameCalculator.calculate(new String[]{"4", "5", "X", "8", "1"});
+        String[] expected = new String[]{"9", "19", "9"};
+        Assertions.assertArrayEquals(expected,result);
+    }
+
+
+
     // incomplete frames
     @Test
     void calculate_givenIncompleteStrikeFrame_shouldReturnNullFinalTwoFrames() {
