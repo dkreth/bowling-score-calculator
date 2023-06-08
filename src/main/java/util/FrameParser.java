@@ -39,7 +39,6 @@ public class FrameParser {
             handleSecondBallOfNumericFrame(iterator, currRoll, tempFrame);
         } else {
             tempFrame.setSecondRoll(null);
-            // todo - maybe break here
         }
         frames.add(tempFrame);
     }
