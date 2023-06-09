@@ -6,9 +6,7 @@ import model.Roll;
 import java.util.*;
 
 public class FrameParser {
-
-
-    public List<Frame> parseRollsIntoFrames(List<Roll> rolls) {
+    public static List<Frame> parseRollsIntoFrames(List<Roll> rolls) {
         List<Frame> frames = new ArrayList<>();
         Iterator<Roll> iterator = rolls.iterator();
         while (iterator.hasNext()) {

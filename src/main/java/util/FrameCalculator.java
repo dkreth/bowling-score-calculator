@@ -7,10 +7,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class FrameCalculator {
-    private FrameParser frameParser = new FrameParser();
-    public String[] calculate(String[] stringRolls) {
+    public static String[] calculate(String[] stringRolls) {
         List<Roll> rolls = Arrays.stream(stringRolls).map(Roll::convertStringToRoll).collect(Collectors.toList());
-        List<Frame> frames = frameParser.parseRollsIntoFrames(rolls);
+        List<Frame> frames = FrameParser.parseRollsIntoFrames(rolls);
 
         List<String> results = new ArrayList<>();
 
