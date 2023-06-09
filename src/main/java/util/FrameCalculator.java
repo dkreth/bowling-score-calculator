@@ -42,14 +42,10 @@ public class FrameCalculator {
             // nextRoll can either be a number or a spare (/)
             if(nextRoll.isNumeric()){
                 frameResult = String.valueOf(currRoll.getValue()+nextRoll.getValue());
-            } else {
-                // if nextRoll is a spare, rollAfterNext can either be a number, strike, or not exist
+            } else { // spare
                 if(iterator.hasNext()) {
-                    Roll rollAfterNext = iterator.next();
-                    // whether rollAfterNext is a number or a strike, we can just add its value to 10 (10 is for the base score of the spare frame)
-                    frameResult = String.valueOf(10 + rollAfterNext.getValue());
-                    // unwinding the iterator.next() we did to peek rollAfterNext's value
-                    iterator.previous();
+                    // for a spare, the total pins knocked down is always 10, regardless of what each roll was
+                    frameResult = String.valueOf(10 + getSpareBonusPoints(iterator));
                 } else {
                     // incomplete frame because nextRoll is a spare and there is no follow-up roll
                     frameResult = null;
@@ -61,6 +57,15 @@ public class FrameCalculator {
             frameResult = null;
         }
         return frameResult;
+    }
+
+    private static int getSpareBonusPoints(ListIterator<Roll> iterator) {
+        Roll rollAfterNext = iterator.next();
+        // unwind the iterator.next() we did to peek rollAfterNext's value, since that roll still needs to be processed
+        iterator.previous();
+
+        // rollAfterNext can only be a number or a strike. Either way, we can just add its value
+        return rollAfterNext.getValue();
     }
 
     private static String handleStrikeFrame(ListIterator<Roll> iterator) {
